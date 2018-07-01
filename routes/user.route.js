@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
+
 
 //import User Schema
 const User = require('../models/user.model');
@@ -16,19 +18,14 @@ router.post('/login', (req, res) => {
 
 router.post('/signup', (req, res, next) => {
 
-    if (req.body.password !== req.body.passwordConf) {
-        return res.status(400).send({
-            message : "Passwords do not match!"
-        });
-    }
+    const NAME_P = req.body.name;
+    const EMAIL_P = req.body.email;
+    let PASSWORD_P = req.body.password;
 
-    if (req.body.email && req.body.username && req.body.password && req.body.passwordConf && req.body.name) {
-        const newUser = new User({
-            name: req.body.name,
-            username: req.body.username,
-            password: req.body.password,
-            passwordConf: req.body.passwordConf,
-            email: req.body.email
+        let newUser = new User({
+            name: NAME_P,
+            email: EMAIL_P,
+            password: PASSWORD_P
         });
         newUser.save((err, user) => {
             if(err){
@@ -41,16 +38,7 @@ router.post('/signup', (req, res, next) => {
                     message : "User added succesfully."
                 });
             }
-        });
-    }
-    else {
-        return res.status(404).send({
-            message : "Please fill in all fields"
-        });
-    }
-
-    
-
+        }); 
 });
 
 

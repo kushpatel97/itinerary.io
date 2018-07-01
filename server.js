@@ -6,7 +6,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
-const mongoURI = require('./config/config').mongoURI;
+const mongoURI = require('./config/config').localMongoURI;
 // const mongoURI = 'mongodb://kushpatel97:kushpatel97@ds227119.mlab.com:27119/itinerary';
 
 
