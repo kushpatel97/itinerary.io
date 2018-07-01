@@ -32,18 +32,56 @@ class Navbar extends Component {
                         <ul className="navbar-nav">
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown
+                                Login
                                 </a>
-                                <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a className="dropdown-item" href="">Action</a>
-                                    <a className="dropdown-item" href="">Another action</a>
+                                <div className="dropdown-menu dropdown-menu-right" id="formLogin" aria-labelledby="navbarDropdownMenuLink">
+                                            <h4 className="card-title text-center mb-4 mt-1">Sign in</h4>
+                                            <hr/>
+                                            <p className="text-success text-center">Some message goes here</p>
+                                            <form>
+                                                <div className="form-group">
+                                                    <div className="input-group">
+                                                        <div className="input-group-prepend">
+                                                            <span className="input-group-text"> <i className="fa fa-user"></i> </span>
+                                                        </div>
+                                                        <input name="" className="form-control" placeholder="Email or login" type="email"/>
+                                                    </div>
+                                                </div>
+                                                <div className="form-group">
+                                                    <div className="input-group">
+                                                        <div className="input-group-prepend">
+                                                            <span className="input-group-text"> <i className="fa fa-lock"></i> </span>
+                                                        </div>
+                                                        <input className="form-control" placeholder="******" type="password"/>
+                                                    </div>
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <button type="submit" className="btn btn-primary btn-block"> Login  </button>
+                                                </div>
+                                                    <p className="text-center"><a href="#" className="btn">Forgot password?</a></p>
+                                            </form>
+
+                                    
+                                    
+                                    
+                                    {/* <div className="row">
+                                        <div className="container-fluid">
+                                            <form className="">
+                                                <div className="form-group">
+                                                    <label className="">Username</label>
+                                                    <input className="form-control" name="username" id="username" type="text"/>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label className="">Password</label>
+                                                    <input className="form-control" name="password" id="password" type="password"/>
+                                                    <br/>
+                                                </div>
+                                                <button type="submit" id="btnLogin" className="btn btn-success btn-sm">Login</button>
+                                            </form>
+                                        </div>
+                                    </div> */}
                                 </div>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="">Login</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="">Register</a>
                             </li>
                         </ul>
                     </div>
