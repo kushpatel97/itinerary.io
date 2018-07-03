@@ -18,12 +18,14 @@ router.post('/login', (req, res) => {
 
 router.post('/signup', (req, res, next) => {
 
-    const NAME_P = req.body.name;
+    const FIRST_NAME = req.body.first_name;
+    const LAST_NAME = req.body.last_name;
     const EMAIL_P = req.body.email;
     let PASSWORD_P = req.body.password;
 
         let newUser = new User({
-            name: NAME_P,
+            first_name: FIRST_NAME,
+            last_name: LAST_NAME,
             email: EMAIL_P,
             password: PASSWORD_P
         });

@@ -5,11 +5,16 @@ var bcrypt = require('bcrypt');
 
 
 const UserSchema = new Schema({
-  name: {
+  first_name: {
    type: String,
    trim: true,  
    required: true,
   },
+  last_name: {
+    type: String,
+    trim: true,  
+    required: true,
+   },
   email: {
    type: String,
    trim: true,
@@ -22,10 +27,10 @@ const UserSchema = new Schema({
   }
  });
 
-UserSchema.pre('save', function(next) {                                                                                                                                        
-  this.password = bcrypt.hashSync(this.password, 10);                                                                                                                                                                       
-  next();                                                                                                                                     
-});  
+// UserSchema.pre('save', function(next) {                                                                                                                                        
+//   this.password = bcrypt.hashSync(this.password, 10);                                                                                                                                                                       
+//   next();                                                                                                                                     
+// });  
 
 
 var User = mongoose.model('User', UserSchema);

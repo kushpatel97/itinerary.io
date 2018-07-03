@@ -1,11 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-
+const cors = require('cors');
 const app = express();
 
 app.use(bodyParser.json());
-
+app.use(cors());
 const mongoURI = require('./config/config').localMongoURI;
 // const mongoURI = 'mongodb://kushpatel97:kushpatel97@ds227119.mlab.com:27119/itinerary';
 
