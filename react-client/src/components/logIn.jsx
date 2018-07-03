@@ -10,12 +10,9 @@ class LogInComponent extends Component {
     }
     render() {
         return (
-            <div>
-                <div className="dropdown-menu dropdown-menu-right" id="formLogin" aria-labelledby="navbarDropdownMenuLink">
-                    
+            <div className="card mx-5 my-5">
+                <article className="card-body">
                     <Link to="/signUp" className="float-right btn btn-outline-primary">Sign Up</Link>
-                    
-                        {/* <a href="" className="float-right btn btn-outline-primary">Sign up</a> */}
                         <h4 className="card-title mb-4 mt-1">Sign in</h4>
                             <hr/>
                             <p className="text-success text-center">Welcome Back!</p>
@@ -23,7 +20,9 @@ class LogInComponent extends Component {
                                 <div className="form-group">
                                     <div className="input-group">
                                         <div className="input-group-prepend">
-                                            <span className="input-group-text" id="user-icon"> <i className="fa fa-user"></i> </span>
+                                            <span className="input-group-text" id="user-icon">
+                                                <i className="fa fa-user"></i>
+                                            </span>
                                         </div>
                                         <input type="email" name="email" className="form-control" placeholder="Email" aria-label="Username" aria-describedby="user-icon"/>
                                     </div>
@@ -31,19 +30,27 @@ class LogInComponent extends Component {
                                 <div className="form-group">
                                     <div className="input-group">
                                         <div className="input-group-prepend">
-                                            <span className="input-group-text"> <i className="fa fa-lock"></i> </span>
+                                            <span className="input-group-text"><i className="fa fa-lock"></i></span>
                                         </div>
                                        <input className="form-control" name="password" placeholder="******" type="password"/>
                                         </div>
                                     </div>
                                     <div className="form-group">
-                                        <button type="submit" className="btn btn-primary btn-block"> Login  </button>
+                                        <button type="submit" className="btn btn-primary btn-block">Login</button>
                                     </div>
                                     <p className="text-center"><a href="" className="btn">Forgot password?</a></p>
                             </form>
-                </div>
+                    </article>
             </div>
         );
+    }
+}
+
+const styles = {
+    borders: {
+        marginTop: '35px',
+        marginLeft: '30%',
+        marginRight: '30%'
     }
 }
 

@@ -26,33 +26,33 @@ class SignUpComponent extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        var user = {
+        const user = {
             first_name: this.state.first_name,
             last_name: this.state.last_name,
             email: this.state.email,
             password: this.state.password
         };
-        axios.post('http://localhost:5000/auth/user/signup',user )
+        axios.post('http://localhost:5000/auth/user/signup',{user} )
         .then( res => {
             console.log(res);
+        }).catch(error => {
+            console.log(error)
         });
 
-        this.setState({
-            first_name: '',
-            last_name: '',
-            email: '',
-            password: ''
-        });
+        // this.setState({
+        //     first_name: '',
+        //     last_name: '',
+        //     email: '',
+        //     password: ''
+        // });
 
     }
 
     render() {
         return (
-            <div>
-                <div className="dropdown-menu dropdown-menu-right" id="formSignUp" aria-labelledby="navbarDropdownMenuLink">
-                <header className="">
-                {/* <Link to="/logIn" className="float-right btn btn-outline-primary mt-1">Log in</Link> */}
-                    <a href="" className="float-right btn btn-outline-primary mt-1">Log in</a>
+            <div className="card mx-5 my-5">
+                <header className="card-header">
+                    <Link to="/logIn" className="float-right btn btn-outline-primary mt-1">Log in</Link>
                     <h4 className="mt-2">Sign up</h4>
                 </header>
                 <article className="card-body">
@@ -82,10 +82,7 @@ class SignUpComponent extends Component {
                     <small className="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br/> Terms of use and Privacy Policy.</small>                                          
                 </form>
                 </article>
-                    <div className="border-top card-body text-center">Have an account?  | Log In</div>
-                </div> 
-
-
+                <Link to="/logIn" className="border-top card-body text-center">Have an account?  | Log In</Link>
             </div>
         );
     }
