@@ -13,6 +13,9 @@ router.get('/', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
+    
+    const loginEmail = req.body.email;
+    const loginPassword = req.body.password;
 
 });
 
@@ -29,6 +32,13 @@ router.post('/signup', (req, res, next) => {
             email: EMAIL_P,
             password: PASSWORD_P
         });
+
+        if(!FIRST_NAME){
+            return res.status(204).send({
+                message: "Please enter a first name field"
+            });
+        }
+
         newUser.save((err, user) => {
             if(err){
                 return res.status(400).send({
@@ -46,7 +56,7 @@ router.post('/signup', (req, res, next) => {
 
 router.delete('/delete/:id', (req, res, next) => {
     User.findById(req.params.id)
-    .then( (user) => user.remove().then( () => res.json({success: true})))
+    .then( (user) => user.remove().then( () => res.json({success: true, message: "User Deleted"})))
     .catch( (err) => res.status(404).json({success: false}))
 
 });

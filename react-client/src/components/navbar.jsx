@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './css-styles/navbar.css';
 import { Link } from 'react-router-dom';
-import LogInComponent from './logIn';
-import SignUpComponent from './signUp';
+// import LogInComponent from './logIn';
+// import SignUpComponent from './signUp';
 
 class Navbar extends Component {
     constructor(){
@@ -30,27 +30,16 @@ class Navbar extends Component {
                             <li className="nav-item">
                                 <a className="nav-link" href="">Pricing</a>
                             </li>
+                            
+                        </ul>
+                        <ul className="navbar-nav float-right">
                             <li className="nav-item">
                                 <Link className="nav-link" to="/logIn">Log In</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/signUp">Sign Up</Link>
                             </li>
-                        </ul>
-                        {/* <ul className="navbar-nav">
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Login
-                                </a>
-                                <LogInComponent/>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle btn btn-outline-dark" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Sign Up
-                                </a>
-                                <SignUpComponent/>
-                            </li>
-                        </ul> */}
+                        </ul> 
                     </div>
                 </nav>
             </div>
@@ -58,10 +47,10 @@ class Navbar extends Component {
     }
 }
 
-const styles = {
-    bg: {
-        backgroundColor: "#e3f2fd"
-    }
-}
+// const styles = {
+//     bg: {
+//         backgroundColor: "#e3f2fd"
+//     }
+// }
 
 export default Navbar;

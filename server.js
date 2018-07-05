@@ -26,7 +26,7 @@ mongoose.connection.on('connected', () => {
 
 //importing routes
 const user = require('./routes/user.route');
-app.use('/auth/user', user);
+app.use('/api/v1/user', user);
  
 const port = process.env.PORT || 5000;
 
