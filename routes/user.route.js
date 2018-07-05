@@ -18,19 +18,30 @@ router.post('/login', (req, res) => {
     const loginEmail = req.body.email;
     const loginPassword = req.body.password;
     
-    User.find({
-        "email": loginEmail,
-        "password": loginPassword
-    },(err, user) => {
-        if (!user) {
+    User.findOne({"email": loginEmail})
+    .exec()
+    .then((user) => {
+        bcrypt.compare(loginPassword, user.password, (err, result) => {
+            if(err){
+                return res.status(401).send({
+                    failed: "Unauthorized Access"
+                });
+            }
+            if(result){
+                return res.status(200).send({
+                    success: "Ready for JWT Auth"
+                });
+            }
             return res.status(401).send({
-                message: "User not found!"
+                failed: "Unauthorized Access"
             });
-        }
-        return res.status(201).send({
-            user: user
-        })
-    }).limit(1);
+        });
+    })
+    .catch(error => {
+        return res.status(500).send({
+            error: error
+        });
+    });
 
 
 });
@@ -41,29 +52,6 @@ router.post('/signup', (req, res, next) => {
     const LAST_NAME = req.body.last_name;
     const EMAIL_P = req.body.email;
     let PASSWORD_P = req.body.password;
-
-    // const newUser = new User();
-    // newUser.email = EMAIL_P;
-    // newUser.first_name = FIRST_NAME;
-    // newUser.last_name = LAST_NAME;
-    // newUser.password = PASSWORD_P;
-    // // newUser.password = newUser.generateHash(PASSWORD_P);
-
-
-    // newUser.save((err, user) => {
-    //     if(err){
-    //         console.log(err);
-    //         return res.status(400).send({
-    //            message : "Failed to add user.",
-    //            log: err
-    //         });
-    //     }
-    //     else{
-    //         return res.status(201).send({
-    //             message : "User added succesfully."            
-    //         });
-    //     }
-    // }); 
 
     bcrypt.hash(PASSWORD_P, 10, function(err, hash){
         if(err){
