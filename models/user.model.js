@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-var bcrypt = require('bcrypt');                                                                                                                                          
+const bcrypt = require('bcrypt'); 
+const uniqueValidator = require('mongoose-unique-validator');                                                                                                                                         
 
 
 
 const UserSchema = new Schema({
   first_name: {
    type: String,
-   trim: true,
-  //  default: '',  
+   trim: true,  
    required: true,
   },
   last_name: {
@@ -19,13 +19,12 @@ const UserSchema = new Schema({
   email: {
    type: String,
    trim: true,
-  //  default: '', 
+   unique: true,
    required: true
   },
   password: {
    type: String,
    trim: true,
-  //  default: '', 
    required: true
   }
  });
@@ -34,6 +33,8 @@ const UserSchema = new Schema({
 //   this.password = bcrypt.hashSync(this.password, 10);                                                                                                                                                                       
 //   next();                                                                                                                                     
 // }); 
+
+UserSchema.plugin(uniqueValidator);
  
 UserSchema.methods.generateHash = function(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);

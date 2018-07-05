@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 
 //import User Schema
 const User = require('../models/user.model');
+const UserSession = require('../models/user_session.model');
 
 
 router.get('/', (req, res) => {
@@ -16,6 +17,21 @@ router.post('/login', (req, res) => {
     
     const loginEmail = req.body.email;
     const loginPassword = req.body.password;
+    
+    User.find({
+        "email": loginEmail,
+        "password": loginPassword
+    },(err, user) => {
+        if (!user) {
+            return res.status(401).send({
+                message: "User not found!"
+            });
+        }
+        return res.status(201).send({
+            user: user
+        })
+    }).limit(1);
+
 
 });
 
@@ -26,31 +42,57 @@ router.post('/signup', (req, res, next) => {
     const EMAIL_P = req.body.email;
     let PASSWORD_P = req.body.password;
 
-        let newUser = new User({
-            first_name: FIRST_NAME,
-            last_name: LAST_NAME,
-            email: EMAIL_P,
-            password: PASSWORD_P
-        });
+    // const newUser = new User();
+    // newUser.email = EMAIL_P;
+    // newUser.first_name = FIRST_NAME;
+    // newUser.last_name = LAST_NAME;
+    // newUser.password = PASSWORD_P;
+    // // newUser.password = newUser.generateHash(PASSWORD_P);
 
-        if(!FIRST_NAME){
-            return res.status(204).send({
-                message: "Please enter a first name field"
+
+    // newUser.save((err, user) => {
+    //     if(err){
+    //         console.log(err);
+    //         return res.status(400).send({
+    //            message : "Failed to add user.",
+    //            log: err
+    //         });
+    //     }
+    //     else{
+    //         return res.status(201).send({
+    //             message : "User added succesfully."            
+    //         });
+    //     }
+    // }); 
+
+    bcrypt.hash(PASSWORD_P, 10, function(err, hash){
+        if(err){
+            return res.status(500).send({
+                error: err
             });
         }
-
-        newUser.save((err, user) => {
-            if(err){
-                return res.status(400).send({
-                    message : "Failed to add user."
-                });
-            }
-            else{
-                return res.status(201).send({
-                    message : "User added succesfully."
-                });
-            }
-        }); 
+        else{
+            const newUser = new User({
+                email: EMAIL_P,
+                password: hash,
+                first_name: FIRST_NAME,
+                last_name: LAST_NAME
+            });
+            newUser.save((err, user) => {
+                if(err){
+                    return res.status(500).send({
+                        error: err
+                    });
+                }
+                else{
+                    return res.status(200).send({
+                        success: "New User Created",
+                        details: user
+                    });
+                }
+            });
+        }
+    });
 });
 
 

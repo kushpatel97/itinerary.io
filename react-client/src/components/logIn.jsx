@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './css-styles/navbar.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-// import SignUpComponent from './signUp';
+import AuthHome from './authComponents/authHome';
 
 class LogInComponent extends Component {
     constructor(props) {
@@ -16,15 +16,24 @@ class LogInComponent extends Component {
     }
 
     handleChange(event) {
-        event.preventDefault();
-
         this.setState({
             [event.target.name]: event.target.value
-        });
+        }, () => console.log(this.state));
     }
 
     handleSubmit(event) {
         event.preventDefault();
+        const existingUser = {
+            email: this.state.email,
+            password: this.state.password
+        };
+
+        axios.post('/api/v1/user/login',existingUser)
+        .then(res => {
+            console.log(res);
+        }).catch(error => {
+            console.log(error)
+        });
     }
 
 
