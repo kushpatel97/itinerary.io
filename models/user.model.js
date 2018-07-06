@@ -29,20 +29,7 @@ const UserSchema = new Schema({
   }
  });
 
-// UserSchema.pre('save', function(next) {                                                                                                                                        
-//   this.password = bcrypt.hashSync(this.password, 10);                                                                                                                                                                       
-//   next();                                                                                                                                     
-// }); 
-
 UserSchema.plugin(uniqueValidator);
- 
-UserSchema.methods.generateHash = function(password) {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
-UserSchema.methods.validPassword = function(password) {
-  return bcrypt.compareSync(password, this.password);
-};
-
 
 var User = mongoose.model('User', UserSchema);
 module.exports = User;

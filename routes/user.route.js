@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 
 //import User Schema
@@ -15,7 +16,7 @@ router.get('/', (req, res) => {
 
 router.post('/login', (req, res) => {
     
-    const loginEmail = req.body.email;
+    const loginEmail = req.body.email.toLowerCase();
     const loginPassword = req.body.password;
     
     User.findOne({"email": loginEmail})
@@ -28,8 +29,11 @@ router.post('/login', (req, res) => {
                 });
             }
             if(result){
-                return res.status(200).send({
-                    success: "Ready for JWT Auth"
+                const JWTToken = jwt.sign({email: user.email, _id: user._id },'secret');
+                return res.status(200).json({
+                    success: true,
+                    message: "Welcome to the JWT Auth",
+                    token: JWTToken
                 });
             }
             return res.status(401).send({
@@ -50,7 +54,7 @@ router.post('/signup', (req, res, next) => {
 
     const FIRST_NAME = req.body.first_name;
     const LAST_NAME = req.body.last_name;
-    const EMAIL_P = req.body.email;
+    const EMAIL_P = req.body.email.toLowerCase();
     let PASSWORD_P = req.body.password;
 
     bcrypt.hash(PASSWORD_P, 10, function(err, hash){
