@@ -29,8 +29,11 @@ mongoose.connection.on('connected', () => {
 
 
 //importing routes
-const user = require('./routes/user.route');
-app.use('/api/v1/user', user);
+const User = require('./routes/user.route');
+const Post = require('./routes/post.route');
+
+app.use('/api/v1/user', User);
+app.use('/api/v1/post', Post);
  
 const port = process.env.PORT || 5000;
 

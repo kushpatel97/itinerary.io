@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import './css-styles/navbar.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import AuthHome from './authComponents/authHome';
 
 class LogInComponent extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
-
-         };
+        this.state = {
+            email: '',
+            password: '',
+            uid: '', 
+            verified: false
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.redirectUser = this.redirectUser.bind(this);
     }
 
     handleChange(event) {
@@ -29,17 +33,30 @@ class LogInComponent extends Component {
         };
 
         axios.post('/api/v1/user/login',existingUser)
-        .then(res => {
-            console.log(res);
-        }).catch(error => {
+        .then(res => { 
+            localStorage.setItem('JWT-Token', res.data.token);
+            this.setState({
+                verified: true,
+                uid: res.data.uid
+            },() => console.log(this.state)); 
+        })
+        .catch(error => {
             console.log(error)
         });
+    }
+
+    redirectUser() {
+        if(this.state.verified){
+            const path = `/home/${this.state.uid}`;
+            return <Redirect to={path} />
+        }
     }
 
 
     render() {
         return (
             <div className="card mx-auto my-5" style={styles.borders}>
+            {this.redirectUser()}
                 <article className="card-body">
                     <Link to="/signUp" className="float-right btn btn-outline-primary">Sign Up</Link>
                         <h4 className="card-title mb-4 mt-1">Sign in</h4>
@@ -56,7 +73,8 @@ class LogInComponent extends Component {
                                         <input 
                                             type="email" 
                                             name="email" 
-                                            className="form-control" 
+                                            className="form-control"
+                                            value={this.state.email} 
                                             onChange={this.handleChange} 
                                             placeholder="Email" 
                                             aria-label="Username" 
@@ -71,7 +89,8 @@ class LogInComponent extends Component {
                                         </div>
                                        <input 
                                             className="form-control" 
-                                            name="password" 
+                                            name="password"
+                                            value={this.state.password} 
                                             onChange={this.handleChange}
                                             type="password"
                                             required/>

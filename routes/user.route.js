@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 
 //import User Schema
 const User = require('../models/user.model');
-const UserSession = require('../models/user_session.model');
 
 
 router.get('/', (req, res) => {
@@ -30,10 +29,13 @@ router.post('/login', (req, res) => {
             }
             if(result){
                 const JWTToken = jwt.sign({email: user.email, _id: user._id },'secret');
+                // localStorage.setItem("Itinerary JWT", JWTToken);
+                
                 return res.status(200).json({
                     success: true,
                     message: "Welcome to the JWT Auth",
-                    token: JWTToken
+                    token: JWTToken,
+                    uid: user._id
                 });
             }
             return res.status(401).send({
