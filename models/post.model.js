@@ -9,7 +9,7 @@ const PostSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    info: {
+    content: {
         type: String
     },
     location: { 

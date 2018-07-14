@@ -26,10 +26,13 @@ const UserSchema = new Schema({
    type: String,
    trim: true,
    required: true
-  }
+  },
+  posts: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Post'
+  }]
  });
 
 UserSchema.plugin(uniqueValidator);
 
-var User = mongoose.model('User', UserSchema);
-module.exports = User;
+module.exports = mongoose.model('User', UserSchema);;

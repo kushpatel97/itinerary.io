@@ -13,6 +13,12 @@ router.get('/', (req, res) => {
         .then( (user) => res.json(user))
 });
 
+router.get('/:id', (req, res) => {
+    User.findById(req.params.id)
+        .then( (user) => res.json(user))
+});
+
+
 router.post('/login', (req, res) => {
     
     const loginEmail = req.body.email.toLowerCase();
