@@ -35,39 +35,6 @@ router.get('/getpostsby/:user_id',(req, res) => {
             });
         }
     });
-
-    // User.findById(req.params.user_id,(err, user) => {
-        // if(err){
-        //     return res.status(500).send({
-        //         success: false,
-        //         err: err
-        //     });
-        // }
-    //     else{
-    //         var post_array = [];
-    //         // console.log(user.posts);
-    //         user.posts.forEach(post_id => {
-    //             // console.log(post_id);
-    //             Post.findById(post_id,(err, ind_post) => {
-    //                 if(err){
-    //                     return res.status(500).send({
-    //                         success: false,
-    //                         err: err
-    //                     });
-    //                 }
-    //                 // console.log(ind_post);
-    //                 post_array.push(ind_post);
-    //                 console.log(post_array);
-    //             });
-    //             console.log("OUTSIDE LOOP",post_array);
-
-    //         });
-    //         return res.status(200).send({
-    //             success: true,
-    //             posts: post_array
-    //         });
-    //     }
-    // });
 });
 
 

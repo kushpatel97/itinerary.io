@@ -10,7 +10,6 @@ class LogInComponent extends Component {
         this.state = {
             email: '',
             password: '',
-            uid: '', 
             verified: false
         };
 
@@ -35,9 +34,9 @@ class LogInComponent extends Component {
         axios.post('/api/v1/user/login',existingUser)
         .then(res => { 
             localStorage.setItem('JWT-Token', res.data.token);
+            localStorage.setItem('uid',res.data.uid);
             this.setState({
-                verified: true,
-                uid: res.data.uid
+                verified: true
             },() => console.log(this.state)); 
         })
         .catch(error => {
@@ -47,7 +46,8 @@ class LogInComponent extends Component {
 
     redirectUser() {
         if(this.state.verified){
-            const path = `/home/${this.state.uid}`;
+            // const path = `/home/${localStorage.getItem('uid')}`;
+            const path = '/home';
             return <Redirect to={path} />
         }
     }

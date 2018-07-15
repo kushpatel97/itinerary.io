@@ -1,34 +1,36 @@
 import React, { Component } from 'react';
-import { Route, Link } from "react-router-dom";
-import { getJWT } from '../../helpers/jwt';
+// import { Route, Link } from "react-router-dom";
+import {  getUID } from '../../helpers/jwt';
 import axios from 'axios';
+import SideBar from './sidebar';
+import Post from '../modelComponents/post';
 
 
 class AuthHome extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            
+            posts: []
         };
     }
 
-    // componentDidMount(){
-    //     const jwt = getJWT();
-    //     if(!jwt){
-    //         this.props.history.push('/login');
-    //     }
+    componentDidMount(){
+        const uid = getUID();
+        if(!uid){
+            this.props.history.push('/login');
+        }
 
-    //     axios.get('/api/v1/user', {headers: {Authorization: `Bearer ${jwt}`}})
-    //     .then(res => {
-    //         this.setState({
-    //             user: res.data
-    //         },() => console.log(this.state))
-    //     })
-    //     .catch(err => {
-    //         localStorage.removeItem('JWT-Token');
-    //         this.props.history.push('/login');
-    //     });
-    // }
+       axios.get('/api/v1/post/getposts')
+       .then(res => {
+           console.log(res.data);
+           this.setState({
+               posts: res.data
+           });
+       })
+       .catch(error => {
+            console.log(error)
+        });
+    }
 
     render() {
         // if(this.state.user === undefined){
@@ -39,7 +41,20 @@ class AuthHome extends Component {
         return(
             <div>
                 <h1>Protected Home Screen</h1>
-                {this.props.match.params.id}
+                <SideBar/>
+                
+                {this.state.posts.map((post, index) => 
+                    // <li key={index}>{post.author} {post.location.name} </li>
+                    <Post 
+                        location={post.location.name}
+                        title={post.title}
+                        author={post.author}
+                        content={post.content}
+                        upvotes={post.votes.upVotes}
+                        downvotes={post.votes.downVotes}
+                        />
+                )}
+                
             </div>
         );
         

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './css-styles/navbar.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { getUID } from '../helpers/jwt';
 // import LogInComponent from './logIn';
 // import SignUpComponent from './signUp';
 
@@ -10,7 +11,19 @@ class Navbar extends Component {
         this.state = {
 
         };
+        this.handleOnClick = this.handleOnClick.bind(this);
     }
+
+    handleOnClick(){
+        const uid = getUID();
+        if(uid){
+            localStorage.removeItem('uid');
+            localStorage.removeItem('JWT-Token');
+            return <Redirect to='/login' />
+        }
+        return <Redirect to='/login' />
+    }
+
     render() {
         return (
             <div>
@@ -38,6 +51,9 @@ class Navbar extends Component {
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link mx-2" to="/signUp">Sign Up</Link>
+                            </li>
+                            <li className="nav-item">
+                                <button className="btn nav-link mx-2" onClick={this.handleOnClick}>Log Out</button>
                             </li>
                         </ul> 
                     </div>
