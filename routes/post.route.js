@@ -4,20 +4,74 @@ const router = express.Router();
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
 
-
+//Gets all posts
 router.get('/getposts',(req, res) => {
     Post.find()
     .then(post => res.send(post))
 });
 
-router.get('/getposts/:id',(req, res) => {
-    Post.findById(req.params.id)
+//Gets a post by a postID
+router.get('/getpost/:post_id',(req, res) => {
+    Post.findById(req.params.post_id)
     .then(post => res.json(post))
     .catch(err => res.send({
         error: err
     }))
 });
 
+//Gets all posts by a user
+router.get('/getpostsby/:user_id',(req, res) => {
+    Post.find({author: req.params.user_id}, (err, posts) => {
+        if(err){
+            return res.status(500).send({
+                success: false,
+                err: err
+            });
+        }
+        else{
+            return res.status(200).send({
+                success: true,
+                posts: posts
+            });
+        }
+    });
+
+    // User.findById(req.params.user_id,(err, user) => {
+        // if(err){
+        //     return res.status(500).send({
+        //         success: false,
+        //         err: err
+        //     });
+        // }
+    //     else{
+    //         var post_array = [];
+    //         // console.log(user.posts);
+    //         user.posts.forEach(post_id => {
+    //             // console.log(post_id);
+    //             Post.findById(post_id,(err, ind_post) => {
+    //                 if(err){
+    //                     return res.status(500).send({
+    //                         success: false,
+    //                         err: err
+    //                     });
+    //                 }
+    //                 // console.log(ind_post);
+    //                 post_array.push(ind_post);
+    //                 console.log(post_array);
+    //             });
+    //             console.log("OUTSIDE LOOP",post_array);
+
+    //         });
+    //         return res.status(200).send({
+    //             success: true,
+    //             posts: post_array
+    //         });
+    //     }
+    // });
+});
+
+
+//Creates a new post
 router.post('/newpost', (req, res) => {
     User.findById(req.body.id)
     .then((user) => {
@@ -82,41 +136,5 @@ router.post('/newpost', (req, res) => {
     });
 });
 
-// router.post('/newpost', (req, res) => {
-
-//     User.findById(req.body.id, (user) => {
-
-        // const newPost = new Post({
-        //     title: req.body.title,
-        //     author: user._id,
-        //     info: req.body.info,
-        //     location: { 
-        //         name: req.body.name
-        //     },
-        //     votes: {
-        //         upVotes: req.body.upvotes,
-        //         downVotes: req.body.downvotes 
-        //     }
-        // });
-        
-//         newPost.save((err, post) => {
-//             if(err){
-                // return res.status(500).send({
-                //     error: err
-                // });
-//             }
-//             else{
-//                 user.posts.push(newPost);
-//                 user.save(err => {
-
-//                 });
-//                 return res.status(200).send({
-//                     success: "New Post Created",
-//                     details: post
-//                 });
-//             }
-//         });
-//     }); 
-// });
 
 module.exports = router;
