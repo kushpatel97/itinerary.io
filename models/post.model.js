@@ -18,12 +18,7 @@ const PostSchema = new Schema({
         }
     },
     votes: {
-        upVotes: {
-            type: Number
-        },
-        downVotes: {
-            type: Number
-        } 
+        type: Number
     },
     comments: [{
         text: {
@@ -37,12 +32,12 @@ const PostSchema = new Schema({
 });
 
 PostSchema.methods.upvote = () => {
-    this.upVotes++;
+    this.votes++;
     return this.save();
 }
 
 PostSchema.methods.downvote = () => {
-    this.downVotes++;
+    this.votes--;
     return this.save();
 }
 
