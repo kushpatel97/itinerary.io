@@ -10,7 +10,7 @@ class Routes extends Component {
     state = {  }
     render() {
         return (
-            <div>
+            <div style={styles.bodyPadding}>
                 <Switch>
                     <Route exact path="/" component={HomePage}/>
                     <Route path="/logIn" component={LogInComponent}/>
@@ -20,6 +20,12 @@ class Routes extends Component {
                 </Switch>
             </div>
         );
+    }
+}
+
+const styles = {
+    bodyPadding: {
+        paddingTop: '70px'
     }
 }
 

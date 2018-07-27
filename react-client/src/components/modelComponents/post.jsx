@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {veniceBG} from '../../images/veniceBG.jpg';
+// import {veniceBG} from '../../images/veniceBG.jpg';
 
 class Post extends Component {
     render() {
