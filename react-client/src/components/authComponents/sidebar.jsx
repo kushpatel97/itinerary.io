@@ -9,7 +9,7 @@ class SideBar extends Component {
     render() {
         return (
                 <nav className="col-md-2 d-none d-md-block sidebar">
-                    <div className="sidebar-sticky">
+                    <div className="sidebar-sticky" style={styles.stickSidebar}>
                         <ul className="nav flex-column">
                             <li className="nav-item">
                                 <NavLink className="nav-link" to='/home/allPosts'>All Posts</NavLink>

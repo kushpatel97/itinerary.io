@@ -49,8 +49,7 @@ router.post('/newpost', (req, res) => {
             content: req.body.content,
             location: { 
                 name: req.body.name
-            },
-            votes: req.body.votes
+            }
         });
 
         newPost.save((err,post) => {
